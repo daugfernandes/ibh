@@ -84,6 +84,27 @@ public class Node implements Cloneable {
     }
     
     @Override
+    public String toString() {
+        return this.toStringAux("");
+    }
+    
+    protected String toStringAux(String pPrefix) {
+
+        String ret = pPrefix + this.getKey() + "=" + this.getValue() + "\n";
+        
+        if(!this.nodes.isEmpty())
+        {
+            Iterator it = this.nodes.iterator();
+            while(it.hasNext()) {
+                Node n =(Node)it.next();
+                ret += n.toStringAux(pPrefix + "x");
+            }
+        }
+
+        return ret;        
+    }
+    
+    @Override
     public Node clone()
     {
         try
