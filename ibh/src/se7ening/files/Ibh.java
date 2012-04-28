@@ -33,10 +33,19 @@ public class Ibh {
         
     private Node root;
     
+    /**
+     * Parameterless constructor
+     * Creates only the root node.
+     */
     public Ibh() {
         this.root = new Node("\\", "root");
     }
     
+    /**
+     * Parse a indent-based text file
+     * @param pFileName Complete name of the text file to parse (read access only).
+     * @return Completeness of the parsing process (true/false).
+     */
     public boolean ParseFile(String pFileName) {
  
         try {
@@ -50,11 +59,20 @@ public class Ibh {
         }
     }
     
+    /**
+     * 
+     * @return
+     */
     @Override
     public String toString() {
         return this.root.toString();
     }
     
+    /**
+     * 
+     * @param pIn
+     * @return
+     */
     public boolean ParseStream(DataInputStream pIn) {
         
         Stack<Integer> indentStack = new Stack<>();
@@ -111,11 +129,20 @@ public class Ibh {
         
     }
     
+    /**
+     * 
+     * @return
+     */
     public Node getRoot() {
         return this.root;
     }
     
     // todo test
+    /**
+     * 
+     * @param pPath
+     * @return
+     */
     public Node getNode(String pPath) {
         
         if(this.root == null)
@@ -138,6 +165,11 @@ public class Ibh {
     }
 
     // todo test
+    /**
+     * 
+     * @param pPath
+     * @return
+     */
     public Node getNodeCopy(String pPath) {
         return this.getNode(pPath).clone();
     }
