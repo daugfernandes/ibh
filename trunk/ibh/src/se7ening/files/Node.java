@@ -52,6 +52,10 @@ public class Node implements Cloneable {
     public void setParent(Node pNode) {
         this.parent = pNode;
     }
+        
+    public Node getParent() {
+        return this.parent;
+    }
     
     public void setKey(String pKey) {
         this.key = pKey;

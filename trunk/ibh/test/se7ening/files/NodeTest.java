@@ -16,6 +16,7 @@
  */
 package se7ening.files;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.*;
 import static org.junit.Assert.*;
@@ -51,11 +52,10 @@ public class NodeTest {
     @Test
     public void testAddChildNode() {
         System.out.println("addChildNode");
-        Node pNode = null;
-        Node instance = null;
+        Node pNode = new Node("a", "a1");
+        Node instance = new Node("b", "b1");
         instance.addChildNode(pNode);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(instance.getNodes().get(0).toString(), pNode.toString());
     }
 
     /**
@@ -64,12 +64,10 @@ public class NodeTest {
     @Test
     public void testGetKey() {
         System.out.println("getKey");
-        Node instance = null;
-        String expResult = "";
+        Node instance = new Node("a","aaa111");
+        String expResult = "a";
         String result = instance.getKey();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -78,11 +76,13 @@ public class NodeTest {
     @Test
     public void testSetParent() {
         System.out.println("setParent");
-        Node pNode = null;
-        Node instance = null;
+        Node pNode = new Node("a","a1");
+        Node instance = new Node("b","b1");
         instance.setParent(pNode);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(instance.getParent().getKey(), "a");
+        assertEquals(instance.getParent().getValue(), "a1");
+        assertEquals(instance.getKey(), "b");
+        assertEquals(instance.getValue(), "b1");
     }
 
     /**
@@ -91,11 +91,10 @@ public class NodeTest {
     @Test
     public void testSetKey() {
         System.out.println("setKey");
-        String pKey = "";
-        Node instance = null;
+        String pKey = "bb";
+        Node instance = new Node("a", "a1");
         instance.setKey(pKey);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(pKey, instance.getKey());
     }
 
     /**
@@ -104,12 +103,10 @@ public class NodeTest {
     @Test
     public void testGetValue() {
         System.out.println("getValue");
-        Node instance = null;
-        String expResult = "";
+        Node instance = new Node("a", "aaaawefgweg");
+        String expResult = "aaaawefgweg";
         String result = instance.getValue();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -118,11 +115,10 @@ public class NodeTest {
     @Test
     public void testSetValue() {
         System.out.println("setValue");
-        String pValue = "";
-        Node instance = null;
+        String pValue = "asfkjlghsdfkljgh";
+        Node instance = new Node("a", "a");
         instance.setValue(pValue);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(pValue, instance.getValue());
     }
 
     /**
@@ -131,12 +127,22 @@ public class NodeTest {
     @Test
     public void testGetNodes() {
         System.out.println("getNodes");
-        Node instance = null;
-        List expResult = null;
+        Node instance = new Node("a", "a1");
+        Node node1 = new Node("b", "b1");
+        Node node2 = new Node("c", "c1");
+        Node node3 = new Node("d", "d1");
+        
+        List<Node> expResult = new ArrayList<>();
+        expResult.add(node1);
+        expResult.add(node2);
+        expResult.add(node3);
+                
+        instance.addChildNode(node1);
+        instance.addChildNode(node2);
+        instance.addChildNode(node3);
+        
         List result = instance.getNodes();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -145,11 +151,20 @@ public class NodeTest {
     @Test
     public void testSetNodes() {
         System.out.println("setNodes");
-        List<Node> pNodes = null;
-        Node instance = null;
-        instance.setNodes(pNodes);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
+        Node instance = new Node("a", "a1");
+        Node node1 = new Node("b", "b1");
+        Node node2 = new Node("c", "c1");
+        Node node3 = new Node("d", "d1");
+        
+        List<Node> expResult = new ArrayList<>();
+        expResult.add(node1);
+        expResult.add(node2);
+        expResult.add(node3);
+                
+        instance.setNodes(expResult);
+        List<Node> expResult2 = instance.getNodes();
+        assertEquals(expResult, expResult2);
     }
 
     /**
@@ -158,13 +173,11 @@ public class NodeTest {
     @Test
     public void testGetNodeByKey() {
         System.out.println("getNodeByKey");
-        String pKey = "";
-        Node instance = null;
-        Node expResult = null;
+        String pKey = "b";
+        Node instance = new Node("a", "a1");
+        instance.addChildNode(new Node("b", "b1"));
         Node result = instance.getNodeByKey(pKey);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals("b", result.getKey());
     }
 
     /**
@@ -173,12 +186,10 @@ public class NodeTest {
     @Test
     public void testToString() {
         System.out.println("toString");
-        Node instance = null;
-        String expResult = "";
+        Node instance = new Node("a", "a1");
+        String expResult = "a=a1-";
         String result = instance.toString();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -187,13 +198,11 @@ public class NodeTest {
     @Test
     public void testToStringAux() {
         System.out.println("toStringAux");
-        String pPrefix = "";
-        Node instance = null;
-        String expResult = "";
+        String pPrefix = "x";
+        Node instance = new Node("a", "a1");
+        String expResult = "xa=a1-";
         String result = instance.toStringAux(pPrefix);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -202,11 +211,21 @@ public class NodeTest {
     @Test
     public void testClone() {
         System.out.println("clone");
-        Node instance = null;
-        Node expResult = null;
+        Node instance = new Node("a","a1");
+        Node expResult = new Node("a", "a1");
         Node result = instance.clone();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(expResult.toString(), result.toString());
+    }
+
+    /**
+     * Test of getParent method, of class Node.
+     */
+    @Test
+    public void testGetParent() {
+        System.out.println("getParent");
+        Node pNode = new Node("a", "a1");
+        Node instance = new Node("b", "b1");
+        instance.setParent(pNode);
+        assertEquals(instance.getParent().toString(), pNode.toString());
     }
 }

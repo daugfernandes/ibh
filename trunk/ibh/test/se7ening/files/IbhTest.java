@@ -17,10 +17,8 @@
 package se7ening.files;
 
 import java.io.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import static org.junit.Assert.assertEquals;
 import org.junit.*;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -49,14 +47,15 @@ public class IbhTest {
 
     /**
      * Test of ParseFile method, of class Ibh.
+     * @throws IOException 
      */
     @Test
-    public void testParseFile() {
-        System.out.println("ParseFile");
-        String pFileName = "";
+    public void testParseFile() throws IOException {
+        System.out.println("testParseFile");
         Ibh instance = new Ibh();
-        boolean expResult = false;
-        boolean result = instance.ParseFile("aa");
+        instance.ParseFile(createTempFile());
+        String expResult = "\\=root- a=0-  a1=1-  a2=2-   a21=21-    a211=211-    a212=212-   a22=22-  a3=3-   a31=31- b=33-  b1=1-   b11=11-    b111=111- c=4- d=33-  b1=1-   b11=11-   b12=12- e=4-";
+        String result = instance.toString();
         assertEquals(expResult, result);
     }
 
@@ -113,7 +112,7 @@ public class IbhTest {
      */
     @Test
     public void testParseStream() throws IOException {
-        System.out.println("toString");
+        System.out.println("testParseStream");
         Ibh instance = new Ibh();
         
          try {
@@ -167,18 +166,16 @@ public class IbhTest {
         Ibh instance = new Ibh();
         instance.ParseFile(createTempFile());
 
-        // for test changes properties of the new node
+        // for test, changes properties of the new cloned node
         Node result = instance.getNodeCopy("a.a2.a21");
         result.setKey("a-21");
         result.setValue("a2121");
+        assertEquals(result.getKey(), "a-21");
+        assertEquals(result.getValue(), "a2121");
         
-        // and certifies that the cloned node stays inaltered
+        // and certifies that the original node stays inaltered
         Node node1 = instance.getNode("a.a2.a21");
         assertEquals(node1.getKey(), "a21");
         assertEquals(node1.getValue(), "21");
-
-        assertEquals(result.getKey(), "a-21");
-        assertEquals(result.getValue(), "a2121");
-    
     }
 }
