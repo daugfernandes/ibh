@@ -31,19 +31,26 @@ public class Node implements Cloneable {
     private String key;
     private String value;
     private List<Node> nodes;
+    private Node parent;
     
     public Node(String pKey, String pValue) {
         this.key = pKey;
         this.value = pValue;
         this.nodes = new ArrayList<>();
+        this.parent = null;
     }
     
     public void addChildNode(Node pNode) {
+        pNode.setParent(this);
         this.nodes.add(pNode);
     }
     
     public String getKey() {
         return this.key;
+    }
+    
+    public void setParent(Node pNode) {
+        this.parent = pNode;
     }
     
     public void setKey(String pKey) {

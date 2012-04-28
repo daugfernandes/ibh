@@ -18,21 +18,78 @@
 
 package se7ening.files;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.util.Stack;
+import se7ening.utilities.Strings;
+
 /**
  *
  * @author David Fernandes <davidfernandes@acm.org>
  */
 public class Ibh {
     
+    private Stack indentStack;
+    private Stack nodeStack;
+        
     private Node root;
     
     public Ibh() {
         this.root = new Node("\\", "root");
     }
     
-    //todo: import ibh text file
-    public Ibh(String pFilename) {
-        this.root = new Node("\\", "root");
+    public boolean ImportFile(String pFileName) {
+ 
+        try {
+            FileInputStream fstream = new FileInputStream(pFileName);
+
+            try (DataInputStream in = new DataInputStream(fstream)) {
+                return ImportStream(in);
+            }
+        } catch (Exception e) { 
+            return false;
+        }
+    }
+    
+    public boolean ImportStream(DataInputStream pIn) {
+        
+        indentStack = new Stack();
+        nodeStack = new Stack();
+        
+        try{
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(pIn));
+            String strLine;
+
+            while ((strLine = br.readLine()) != null) {
+
+                int indent = Strings.firstOccurenceOfNot(strLine, " ");
+                int equalPosition = strLine.indexOf("=");
+
+                String key = strLine;
+                String value = "";
+
+                if(equalPosition > -1) {
+                    String[] aux = strLine.split("\\=");
+                    key = aux[0].trim();
+                    value = aux[1].trim();
+                }
+
+                // todo:
+
+                indentStack.push(1);
+            }
+            
+        }catch (Exception e){//Catch exception if any
+
+            return false;
+        
+        }
+
+        return true;
+        
     }
     
     public Node getRoot() {
@@ -65,6 +122,5 @@ public class Ibh {
     public Node getNodeCopy(String pPath) {
         return this.getNode(pPath).clone();
     }
-    
     
 }
