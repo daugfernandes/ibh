@@ -30,9 +30,6 @@ import se7ening.utilities.Strings;
  * @author David Fernandes <davidfernandes@acm.org>
  */
 public class Ibh {
-    
-    private Stack indentStack;
-    private Stack nodeStack;
         
     private Node root;
     
@@ -40,46 +37,68 @@ public class Ibh {
         this.root = new Node("\\", "root");
     }
     
-    public boolean ImportFile(String pFileName) {
+    public boolean ParseFile(String pFileName) {
  
         try {
             FileInputStream fstream = new FileInputStream(pFileName);
 
             try (DataInputStream in = new DataInputStream(fstream)) {
-                return ImportStream(in);
+                return ParseStream(in);
             }
         } catch (Exception e) { 
             return false;
         }
     }
     
-    public boolean ImportStream(DataInputStream pIn) {
+    @Override
+    public String toString() {
+        return this.root.toString();
+    }
+    
+    public boolean ParseStream(DataInputStream pIn) {
         
-        indentStack = new Stack();
-        nodeStack = new Stack();
+        Stack indentStack = new Stack();
+        Stack nodeStack = new Stack();
+        
+        indentStack.push(-1);
+        nodeStack.push(this.root);
         
         try{
 
             BufferedReader br = new BufferedReader(new InputStreamReader(pIn));
             String strLine;
-
+            
             while ((strLine = br.readLine()) != null) {
 
-                int indent = Strings.firstOccurenceOfNot(strLine, " ");
-                int equalPosition = strLine.indexOf("=");
+                if(strLine.trim().length() > 0 && !strLine.trim().startsWith("#")) {
+                
+                    int indent = Strings.firstOccurenceOfNot(strLine, " ");
 
-                String key = strLine;
-                String value = "";
-
-                if(equalPosition > -1) {
                     String[] aux = strLine.split("\\=");
-                    key = aux[0].trim();
-                    value = aux[1].trim();
+                    String key = aux[0].trim();
+                    String value = "";
+
+                    if(aux.length > 1) value = aux[1].trim();
+
+                    Node newNode = new Node(key, value);
+
+                    while(indent < (int)indentStack.peek()) {
+                        indentStack.pop();
+                        nodeStack.pop();
+                    } 
+
+                    if(indent > (int)indentStack.peek()) {
+                        ((Node)nodeStack.peek()).addChildNode(newNode);
+                        nodeStack.push(newNode);
+                        indentStack.push(indent);
+                    } else { // indent == (int)indentStack.peek()
+                        // no need to pop (or push) indentStack as the 
+                        // identation is the same as previous line
+                        nodeStack.pop();
+                        ((Node)nodeStack.peek()).addChildNode(newNode);
+                        nodeStack.push(newNode);
+                    }
                 }
-
-                // todo:
-
-                indentStack.push(1);
             }
             
         }catch (Exception e){//Catch exception if any

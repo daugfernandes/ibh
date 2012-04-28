@@ -26,14 +26,14 @@ public class Strings {
 
     public static int firstOccurenceOf(String pString, String pChar) {
         for(int i = 0; i < pString.length(); i++)
-            if(pString.substring(i, 1).equals(pChar))
+            if(pString.substring(i, i + 1).equals(pChar))
                 return i;
         return -1;
     }
 
     public static int firstOccurenceOfNot(String pString, String pChar) {
         for(int i = 0; i < pString.length(); i++)
-            if(!pString.substring(i, 1).equals(pChar))
+            if(!pString.substring(i, i + 1).equals(pChar))
                 return i;
         return -1;
     }    
