@@ -127,8 +127,7 @@ public class Node implements Cloneable {
         Iterator it = this.nodes.iterator();
         while(it.hasNext()) {
             Node n =(Node)it.next();
-            if(n.getKey().equals(pKey))
-                return n;
+            if(n.getKey().equals(pKey)) return n;
         }
         return null;
     }
@@ -151,8 +150,7 @@ public class Node implements Cloneable {
 
         String ret = pPrefix + this.getKey() + "=" + this.getValue() + "-";
         
-        if(!this.nodes.isEmpty())
-        {
+        if(!this.nodes.isEmpty()) {
             Iterator it = this.nodes.iterator();
             while(it.hasNext()) {
                 Node n =(Node)it.next();
@@ -170,12 +168,9 @@ public class Node implements Cloneable {
     @Override
     public Node clone()
     {
-        try
-    {
+        try {
             return (Node)super.clone();
-        }
-    catch( CloneNotSupportedException e )
-    {
+        } catch( CloneNotSupportedException e ) {
             return null;
         }
     } 

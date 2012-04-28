@@ -34,25 +34,24 @@ public class Ibh {
     private Node root;
     
     /**
-     * Parameterless constructor
-     * Creates only the root node.
+     *
      */
     public Ibh() {
         this.root = new Node("\\", "root");
     }
     
     /**
-     * Parse a indent-based text file
-     * @param pFileName Complete name of the text file to parse (read access only).
+     * Parse a text file
+     * @param pFileName
      * @return Completeness of the parsing process (true/false).
      */
-    public boolean ParseFile(String pFileName) {
+    public boolean parseFile(String pFileName) {
  
         try {
             FileInputStream fstream = new FileInputStream(pFileName);
 
             try (DataInputStream in = new DataInputStream(fstream)) {
-                return ParseStream(in);
+                return parseStream(in);
             }
         } catch (Exception e) { 
             return false;
@@ -73,7 +72,7 @@ public class Ibh {
      * @param pIn
      * @return
      */
-    public boolean ParseStream(DataInputStream pIn) {
+    public boolean parseStream(DataInputStream pIn) {
         
         Stack<Integer> indentStack = new Stack<>();
         Stack<Node> nodeStack = new Stack<>();

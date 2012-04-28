@@ -63,14 +63,14 @@ public class IbhTest {
     }
 
     /**
-     * Test of ParseFile method, of class Ibh.
+     * Test of parseFile method, of class Ibh.
      * @throws IOException 
      */
     @Test
     public void testParseFile() throws IOException {
         System.out.println("testParseFile");
         Ibh instance = new Ibh();
-        instance.ParseFile(createTempFile());
+        instance.parseFile(createTempFile());
         String expResult = "\\=root- a=0-  a1=1-  a2=2-   a21=21-    a211=211-    a212=212-   a22=22-  a3=3-   a31=31- b=33-  b1=1-   b11=11-    b111=111- c=4- d=33-  b1=1-   b11=11-   b12=12- e=4-";
         String result = instance.toString();
         assertEquals(expResult, result);
@@ -117,14 +117,14 @@ public class IbhTest {
     public void testToString() throws IOException {
         System.out.println("toString");
         Ibh instance = new Ibh();
-        instance.ParseFile(createTempFile());
+        instance.parseFile(createTempFile());
         String expResult = "\\=root- a=0-  a1=1-  a2=2-   a21=21-    a211=211-    a212=212-   a22=22-  a3=3-   a31=31- b=33-  b1=1-   b11=11-    b111=111- c=4- d=33-  b1=1-   b11=11-   b12=12- e=4-";
         String result = instance.toString();
         assertEquals(expResult, result);
     }
 
     /**
-     * Test of ParseStream method, of class Ibh.
+     * Test of parseStream method, of class Ibh.
      * @throws IOException 
      */
     @Test
@@ -136,7 +136,7 @@ public class IbhTest {
             FileInputStream fstream = new FileInputStream(createTempFile());
 
             try (DataInputStream in = new DataInputStream(fstream)) {
-                instance.ParseStream(in);
+                instance.parseStream(in);
             }
         } catch (Exception e) { 
         }
@@ -167,7 +167,7 @@ public class IbhTest {
         System.out.println("getNode");
         String pPath = "";
         Ibh instance = new Ibh();
-        instance.ParseFile(createTempFile());
+        instance.parseFile(createTempFile());
         String expResult = "211";
         Node result = instance.getNode("a.a2.a21.a211");
         assertEquals(expResult, result.getValue());
@@ -181,7 +181,7 @@ public class IbhTest {
     public void testGetNodeCopy() throws IOException {
         System.out.println("getNodeCopy");
         Ibh instance = new Ibh();
-        instance.ParseFile(createTempFile());
+        instance.parseFile(createTempFile());
 
         // for test, changes properties of the new cloned node
         Node result = instance.getNodeCopy("a.a2.a21");
