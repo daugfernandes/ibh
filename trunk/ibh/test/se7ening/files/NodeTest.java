@@ -18,8 +18,8 @@ package se7ening.files;
 
 import java.util.ArrayList;
 import java.util.List;
+import static org.junit.Assert.assertEquals;
 import org.junit.*;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -27,21 +27,38 @@ import static org.junit.Assert.*;
  */
 public class NodeTest {
     
+    /**
+     * 
+     */
     public NodeTest() {
     }
 
+    /**
+     * 
+     * @throws Exception
+     */
     @BeforeClass
     public static void setUpClass() throws Exception {
     }
 
+    /**
+     * 
+     * @throws Exception
+     */
     @AfterClass
     public static void tearDownClass() throws Exception {
     }
     
+    /**
+     * 
+     */
     @Before
     public void setUp() {
     }
     
+    /**
+     * 
+     */
     @After
     public void tearDown() {
     }

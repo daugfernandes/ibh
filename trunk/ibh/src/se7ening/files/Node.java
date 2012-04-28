@@ -33,6 +33,11 @@ public class Node implements Cloneable {
     private List<Node> nodes;
     private Node parent;
     
+    /**
+     * 
+     * @param pKey
+     * @param pValue
+     */
     public Node(String pKey, String pValue) {
         this.key = pKey;
         this.value = pValue;
@@ -40,43 +45,84 @@ public class Node implements Cloneable {
         this.parent = null;
     }
     
+    /**
+     * 
+     * @param pNode
+     */
     public void addChildNode(Node pNode) {
         pNode.setParent(this);
         this.nodes.add(pNode);
     }
     
+    /**
+     * 
+     * @return
+     */
     public String getKey() {
         return this.key;
     }
     
+    /**
+     * 
+     * @param pNode
+     */
     public void setParent(Node pNode) {
         this.parent = pNode;
     }
         
+    /**
+     * 
+     * @return
+     */
     public Node getParent() {
         return this.parent;
     }
     
+    /**
+     * 
+     * @param pKey
+     */
     public void setKey(String pKey) {
         this.key = pKey;
     }
     
+    /**
+     * 
+     * @return
+     */
     public String getValue() {
         return this.value;
     }
     
+    /**
+     * 
+     * @param pValue
+     */
     public void setValue(String pValue) {
         this.value = pValue;
     }
 
+    /**
+     * 
+     * @return
+     */
     public List<Node> getNodes() {
         return this.nodes;
     }
 
+    /**
+     * 
+     * @param pNodes
+     */
     public void setNodes(List<Node> pNodes) {
         this.nodes = pNodes;
     }
     
+    /**
+     * 
+     * @param pKey
+     * @return
+     */
     public Node getNodeByKey(String pKey) {
         Iterator it = this.nodes.iterator();
         while(it.hasNext()) {
@@ -87,11 +133,20 @@ public class Node implements Cloneable {
         return null;
     }
     
+    /**
+     * 
+     * @return
+     */
     @Override
     public String toString() {
         return this.toStringAux("");
     }
     
+    /**
+     * 
+     * @param pPrefix
+     * @return
+     */
     protected String toStringAux(String pPrefix) {
 
         String ret = pPrefix + this.getKey() + "=" + this.getValue() + "-";
@@ -108,6 +163,10 @@ public class Node implements Cloneable {
         return ret;        
     }
     
+    /**
+     * 
+     * @return
+     */
     @Override
     public Node clone()
     {
