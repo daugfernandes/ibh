@@ -90,14 +90,14 @@ public class Node implements Cloneable {
     
     protected String toStringAux(String pPrefix) {
 
-        String ret = pPrefix + this.getKey() + "=" + this.getValue() + "\n";
+        String ret = pPrefix + this.getKey() + "=" + this.getValue() + "-";
         
         if(!this.nodes.isEmpty())
         {
             Iterator it = this.nodes.iterator();
             while(it.hasNext()) {
                 Node n =(Node)it.next();
-                ret += n.toStringAux(pPrefix + "x");
+                ret += n.toStringAux(pPrefix + " ");
             }
         }
 
