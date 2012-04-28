@@ -57,8 +57,8 @@ public class Ibh {
     
     public boolean ParseStream(DataInputStream pIn) {
         
-        Stack indentStack = new Stack();
-        Stack nodeStack = new Stack();
+        Stack<Integer> indentStack = new Stack<>();
+        Stack<Node> nodeStack = new Stack<>();
         
         indentStack.push(-1);
         nodeStack.push(this.root);
@@ -72,7 +72,7 @@ public class Ibh {
 
                 if(strLine.trim().length() > 0 && !strLine.trim().startsWith("#")) {
                 
-                    int indent = Strings.firstOccurenceOfNot(strLine, " ");
+                    Integer indent = Strings.firstOccurenceOfNot(strLine, " ");
 
                     String[] aux = strLine.split("\\=");
                     String key = aux[0].trim();
@@ -128,7 +128,7 @@ public class Ibh {
         if(keys.length == 0)
             return this.root;
         
-        for(int i = 0; i < keys.length; i++) {
+        for(Integer i = 0; i < keys.length; i++) {
             ret = ret.getNodeByKey(keys[i]);
             if(ret == null)
                 return null;
