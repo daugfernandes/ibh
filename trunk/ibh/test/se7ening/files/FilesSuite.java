@@ -28,7 +28,7 @@ import org.junit.runners.Suite;
  * @author David Fernandes <davidfernandes@acm.org>
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({se7ening.files.IbhTest.class, se7ening.files.NodeTest.class})
+@Suite.SuiteClasses({se7ening.files.IbhTest.class})
 public class FilesSuite {
 
     /**
