@@ -16,6 +16,7 @@
  */
 package se7ening.files;
 
+import se7ening.utilities.Node;
 import java.io.*;
 import static org.junit.Assert.assertEquals;
 import org.junit.*;
