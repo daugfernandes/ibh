@@ -61,15 +61,6 @@ public class Ibh {
     
     /**
      * 
-     * @return
-     */
-    @Override
-    public String toString() {
-        return this.root.toString();
-    }
-    
-    /**
-     * 
      * @param pIn
      * @return
      */
@@ -173,5 +164,15 @@ public class Ibh {
     public Node getNodeCopy(String pPath) {
         return this.getNode(pPath).clone();
     }
+    
+    /**
+     * 
+     * @return
+     */
+    @Override
+    public String toString() {
+        return this.root.toString();
+    }
+    
     
 }
