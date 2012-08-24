@@ -86,8 +86,12 @@ public class Ibh {
                     String[] aux = strLine.split("\\=");
                     String key = aux[0].trim();
                     String value = "";
-
-                    if(aux.length > 1) value = aux[1].trim();
+                    
+                    for(int i=1; i<aux.length; i++)
+                    {
+                        if(i>1) value += "=";
+                        value += aux[i].trim();
+                    }
 
                     Node newNode = new Node(key, value);
 
