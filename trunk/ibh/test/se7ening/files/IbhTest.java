@@ -72,7 +72,7 @@ public class IbhTest {
         System.out.println("testParseFile");
         Ibh instance = new Ibh();
         instance.parseFile(createTempFile());
-        String expResult = "\\=root- a=0-  a1=1-  a2=2-   a21=21-    a211=211-    a212=212-   a22=22-  a3=3-   a31=31- b=33-  b1=1-   b11=11-    b111=111- c=4- d=33-  b1=1-   b11=11-   b12=12- e=4-";
+        String expResult = "\\=root- a=0-  a1=1-  a2=2a=a2-   a21=21-    a211=211-    a212=212-   a22=22-  a3=3-   a31=31- b=33-  b1=1-   b11=11-    b111=111- c=4- d=33-  b1=1-   b11=11-   b12=12- e=4-";
         String result = instance.toString();
         assertEquals(expResult, result);
     }
@@ -84,7 +84,7 @@ public class IbhTest {
             out.write("# test file\n");
             out.write("a=0\n");
             out.write("   a1=1\n");
-            out.write("   a2=2\n");
+            out.write("   a2=2a=a2\n");
             out.write("      a21=21\n");
             out.write("         a211=211\n");
             out.write("         a212=212\n");
@@ -119,7 +119,7 @@ public class IbhTest {
         System.out.println("toString");
         Ibh instance = new Ibh();
         instance.parseFile(createTempFile());
-        String expResult = "\\=root- a=0-  a1=1-  a2=2-   a21=21-    a211=211-    a212=212-   a22=22-  a3=3-   a31=31- b=33-  b1=1-   b11=11-    b111=111- c=4- d=33-  b1=1-   b11=11-   b12=12- e=4-";
+        String expResult = "\\=root- a=0-  a1=1-  a2=2a=a2-   a21=21-    a211=211-    a212=212-   a22=22-  a3=3-   a31=31- b=33-  b1=1-   b11=11-    b111=111- c=4- d=33-  b1=1-   b11=11-   b12=12- e=4-";
         String result = instance.toString();
         assertEquals(expResult, result);
     }
@@ -142,7 +142,7 @@ public class IbhTest {
         } catch (Exception e) { 
         }
         
-        String expResult = "\\=root- a=0-  a1=1-  a2=2-   a21=21-    a211=211-    a212=212-   a22=22-  a3=3-   a31=31- b=33-  b1=1-   b11=11-    b111=111- c=4- d=33-  b1=1-   b11=11-   b12=12- e=4-";
+        String expResult = "\\=root- a=0-  a1=1-  a2=2a=a2-   a21=21-    a211=211-    a212=212-   a22=22-  a3=3-   a31=31- b=33-  b1=1-   b11=11-    b111=111- c=4- d=33-  b1=1-   b11=11-   b12=12- e=4-";
         String result = instance.toString();
         assertEquals(expResult, result);
     }
