@@ -27,15 +27,15 @@ import se7ening.utilities.Node;
 import se7ening.utilities.Strings;
 
 /**
- *
- * @author David Fernandes <davidfernandes@acm.org>
+ * Indent-based hierarchy
+ * @author David Fernandes <david.paiva.fernandes@gmail.com>
  */
 public class Ibh {
         
     private Node root;
     
     /**
-     *
+     * Indent-based hierarchy class
      */
     public Ibh() {
         this.root = new Node("\\", "root");
@@ -43,7 +43,7 @@ public class Ibh {
     
     /**
      * Parse a text file
-     * @param pFileName
+     * @param pFileName Complete file name
      * @return Completeness of the parsing process (true/false).
      */
     public boolean parseFile(String pFileName) {
@@ -60,9 +60,9 @@ public class Ibh {
     }
     
     /**
-     * 
-     * @param pIn
-     * @return
+     * Parse a stream
+     * @param pIn Input stream
+     * @return Completeness of the parsing process (true/false).
      */
     public boolean parseStream(DataInputStream pIn) {
         
@@ -126,7 +126,7 @@ public class Ibh {
     
     /**
      * 
-     * @return
+     * @return Root node
      */
     public Node getRoot() {
         return this.root;
@@ -134,9 +134,9 @@ public class Ibh {
     
     // todo test
     /**
-     * 
-     * @param pPath
-     * @return
+     * Get a Node based on the its path
+     * @param pPath Complete path dot-separated string
+     * @return Node
      */
     public Node getNode(String pPath) {
         
@@ -159,19 +159,18 @@ public class Ibh {
         return ret;
     }
 
-    // todo test
     /**
-     * 
+     * Clones a node
      * @param pPath
-     * @return
+     * @return A new cloned node
      */
     public Node getNodeCopy(String pPath) {
         return this.getNode(pPath).clone();
     }
     
     /**
-     * 
-     * @return
+     * String representation
+     * @return A string
      */
     @Override
     public String toString() {
