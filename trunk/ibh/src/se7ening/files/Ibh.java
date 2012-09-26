@@ -22,7 +22,12 @@ import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Stack;
+import java.util.TreeMap;
+import javax.xml.crypto.dsig.keyinfo.KeyValue;
 import se7ening.utilities.Node;
 import se7ening.utilities.Strings;
 
@@ -66,6 +71,10 @@ public class Ibh {
      */
     public boolean parseStream(DataInputStream pIn) {
         
+        Integer tabChars = 0;
+
+        HashMap attributes = new HashMap();
+        
         Stack<Integer> indentStack = new Stack<>();
         Stack<Node> nodeStack = new Stack<>();
         
@@ -79,39 +88,52 @@ public class Ibh {
             
             while ((strLine = br.readLine()) != null) {
 
-                if(strLine.trim().length() > 0 && !strLine.trim().startsWith("#")) {
-                
-                    Integer indent = Strings.firstOccurenceOfNot(strLine, " ");
-
-                    String[] aux = strLine.split("\\=");
-                    String key = aux[0].trim();
-                    String value = "";
-                    
-                    for(int i=1; i<aux.length; i++)
-                    {
-                        if(i>1) value += "=";
-                        value += aux[i].trim();
-                    }
-                    
-                    Node newNode = new Node(key, value);
-
-                    while(indent < (int)indentStack.peek()) {
-                        indentStack.pop();
-                        nodeStack.pop();
-                    } 
-
-                    if(indent > (int)indentStack.peek()) {
-                        ((Node)nodeStack.peek()).addChildNode(newNode);
-                        nodeStack.push(newNode);
-                        indentStack.push(indent);
-                    } else { // indent == (int)indentStack.peek()
-                        // no need to pop (or push) indentStack as the 
-                        // identation is the same as previous line
-                        nodeStack.pop();
-                        ((Node)nodeStack.peek()).addChildNode(newNode);
-                        nodeStack.push(newNode);
-                    }
+                // treat attributes as, for example
+                // tab length:  
+                // % tab 4
+                if(strLine.trim().startsWith("%")) {
+                    String[] aux = strLine.trim().replaceAll("  ", " ").split(" ");
+                    attributes.put(aux[1], aux.length>1 ? aux[2] : "");
                 }
+                
+                else
+                
+                    if(strLine.trim().length() > 0 && !strLine.trim().startsWith("#")) {
+
+                        if(attributes.containsKey("tab"))
+                            strLine = strLine.replace("\t", new String(new char[Integer.parseInt((String)attributes.get("tab"))]).replace("\0", " "));
+
+                        Integer indent = Strings.firstOccurenceOfNot(strLine, " ");
+
+                        String[] aux = strLine.split("\\=");
+                        String key = aux[0].trim();
+                        String value = "";
+
+                        for(int i=1; i<aux.length; i++)
+                        {
+                            if(i>1) value += "=";
+                            value += aux[i].trim();
+                        }
+
+                        Node newNode = new Node(key, value);
+
+                        while(indent < (int)indentStack.peek()) {
+                            indentStack.pop();
+                            nodeStack.pop();
+                        } 
+
+                        if(indent > (int)indentStack.peek()) {
+                            ((Node)nodeStack.peek()).addChildNode(newNode);
+                            nodeStack.push(newNode);
+                            indentStack.push(indent);
+                        } else { // indent == (int)indentStack.peek()
+                            // no need to pop (or push) indentStack as the 
+                            // identation is the same as previous line
+                            nodeStack.pop();
+                            ((Node)nodeStack.peek()).addChildNode(newNode);
+                            nodeStack.push(newNode);
+                        }
+                    }
             }
             
         }catch (Exception e){//Catch exception if any
