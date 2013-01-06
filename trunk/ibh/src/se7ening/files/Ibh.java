@@ -18,16 +18,9 @@
 
 package se7ening.files;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Stack;
-import java.util.TreeMap;
-import javax.xml.crypto.dsig.keyinfo.KeyValue;
 import se7ening.utilities.Node;
 import se7ening.utilities.Strings;
 
@@ -136,7 +129,7 @@ public class Ibh {
                     }
             }
             
-        }catch (Exception e){//Catch exception if any
+        }catch (IOException | NumberFormatException e){//Catch exception if any
 
             return false;
         
