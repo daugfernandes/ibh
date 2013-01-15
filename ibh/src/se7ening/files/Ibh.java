@@ -66,7 +66,7 @@ public class Ibh {
         
         Integer tabChars = 0;
 
-        HashMap attributes = new HashMap();
+        HashMap<String, String> attributes = new HashMap<>();
         
         Stack<Integer> indentStack = new Stack<>();
         Stack<Node> nodeStack = new Stack<>();
@@ -93,8 +93,9 @@ public class Ibh {
                 
                     if(strLine.trim().length() > 0 && !strLine.trim().startsWith("#")) {
 
-                        if(attributes.containsKey("tab"))
-                            strLine = strLine.replace("\t", new String(new char[Integer.parseInt((String)attributes.get("tab"))]).replace("\0", " "));
+                        if(attributes.containsKey("tab")) {
+                            strLine = strLine.replace("\t", new String(new char[Integer.parseInt(attributes.get("tab"))]).replace("\0", " "));
+                        }
 
                         Integer indent = Strings.firstOccurenceOfNot(strLine, " ");
 
@@ -104,7 +105,9 @@ public class Ibh {
 
                         for(int i=1; i<aux.length; i++)
                         {
-                            if(i>1) value += "=";
+                            if(i>1) {
+                                value += "=";
+                            }
                             value += aux[i].trim();
                         }
 
@@ -116,14 +119,14 @@ public class Ibh {
                         } 
 
                         if(indent > (int)indentStack.peek()) {
-                            ((Node)nodeStack.peek()).addChildNode(newNode);
+                            nodeStack.peek().addChildNode(newNode);
                             nodeStack.push(newNode);
                             indentStack.push(indent);
                         } else { // indent == (int)indentStack.peek()
                             // no need to pop (or push) indentStack as the 
                             // identation is the same as previous line
                             nodeStack.pop();
-                            ((Node)nodeStack.peek()).addChildNode(newNode);
+                            nodeStack.peek().addChildNode(newNode);
                             nodeStack.push(newNode);
                         }
                     }
@@ -155,20 +158,23 @@ public class Ibh {
      */
     public Node getNode(String pPath) {
         
-        if(this.root == null)
+        if(this.root == null) {
             return null;
+        }
         
         Node ret = this.root;
         
         String[] keys = pPath.split("\\.");
         
-        if(keys.length == 0)
+        if(keys.length == 0) {
             return this.root;
+        }
         
         for(Integer i = 0; i < keys.length; i++) {
             ret = ret.getNodeByKey(keys[i]);
-            if(ret == null)
+            if(ret == null) {
                 return null;
+            }
         }
             
         return ret;
