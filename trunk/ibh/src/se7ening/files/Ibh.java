@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 David Fernandes <davidfernandes@acm.org>
+ * Copyright (C) 2012 David Fernandes <david.paiva.fernandes@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -81,7 +81,7 @@ public class Ibh {
             
             while ((strLine = br.readLine()) != null) {
 
-                // treat attributes as, for example
+                // treat attributes, for example
                 // tab length:  
                 // % tab 4
                 if(strLine.trim().startsWith("%")) {
